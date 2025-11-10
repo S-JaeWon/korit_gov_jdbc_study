@@ -30,13 +30,14 @@ public class UserService {
         userDao.addUser(user);
     }
 
-    public int signin(SigninReqDto signinReqDto) {
+    public User signin(SigninReqDto signinReqDto) {
         Optional<User> searchUser = userDao.searchUsernameByUsername(signinReqDto.getUsername());
-        searchUser.get();
+        User user = searchUser.get();
 
         if (searchUser.isEmpty() || !PasswordEncoder.match(signinReqDto.getPassword(), searchUser.get().getPassword())) {
-            return 1;
+            return null;
         }
+        return user;
     }
 
     public boolean isDupleUsername(String username) {

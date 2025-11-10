@@ -3,6 +3,7 @@ package com.korit.study2;
 import com.korit.study2.dto.GetUserListRespDto;
 import com.korit.study2.dto.SigninReqDto;
 import com.korit.study2.dto.SignupReqDto;
+import com.korit.study2.entity.User;
 import com.korit.study2.service.UserService;
 
 import java.util.Scanner;
@@ -67,17 +68,15 @@ public class Main {
             }
             else if ("2".equals(select)) {
                 System.out.println("[ 로그인 ]");
+
                 SigninReqDto signinReqDto = new SigninReqDto();
                 System.out.print("아이디: ");
                 signinReqDto.setUsername(scanner.nextLine());
                 System.out.print("비밀번호: ");
                 signinReqDto.setPassword(scanner.nextLine());
-                if () {
 
-                }
+                User user = userService.signin(signinReqDto);
 
-
-                userService.signin(signinReqDto);
                 System.out.println("로그인 완료");
 
             }

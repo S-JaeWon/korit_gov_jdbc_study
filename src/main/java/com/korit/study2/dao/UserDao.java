@@ -45,7 +45,7 @@ public class UserDao {
     }
 
     public Optional<User> searchUsernameByUsername(String username) {
-        String sql = "select user_id, username, email, create_dt from user2_tb where username = ?;";
+        String sql = "select * from user2_tb where username = ?";
         try (Connection con = ConnectionFactory.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, username);
@@ -63,7 +63,7 @@ public class UserDao {
         }
     }
     public Optional<User> searchUsernameByEmail(String email) {
-        String sql = "select user_id, username, email, create_dt from user2_tb where email = ?;";
+        String sql = "select * from user2_tb where email = ?";
         try (Connection con = ConnectionFactory.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, email);
@@ -98,7 +98,7 @@ public class UserDao {
         return userAll;
     }
 
-    private User toUser(ResultSet rs) throws SQLException {
+    public User toUser(ResultSet rs) throws SQLException {
         return User.builder()
                 .userId(rs.getInt("user_id"))
                 .username(rs.getString("username"))
