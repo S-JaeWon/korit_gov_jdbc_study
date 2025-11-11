@@ -100,7 +100,7 @@ public class UserDao {
     }
 
     public List<GetUserListRespDto> searchUserByKeyword(String str) {
-        String sql = "select user_id, username, email, create_dt from user2_tb where username like?";
+        String sql = "select user_id, username, email, create_dt from user2_tb where username like ?";
         List<GetUserListRespDto> userListDto = new ArrayList<>();
 
         try (Connection con = ConnectionFactory.getConnection();
@@ -118,7 +118,7 @@ public class UserDao {
         return userListDto;
     }
 
-    public User toUser(ResultSet rs) throws SQLException {
+    private User toUser(ResultSet rs) throws SQLException {
         return User.builder()
                 .userId(rs.getInt("user_id"))
                 .username(rs.getString("username"))
@@ -128,7 +128,7 @@ public class UserDao {
                 .build();
     }
 
-    public GetUserListRespDto toUserDto (ResultSet rs) throws SQLException {
+    private GetUserListRespDto toUserDto (ResultSet rs) throws SQLException {
         return GetUserListRespDto.builder()
                 .userId(rs.getInt("user_id"))
                 .username(rs.getString("username"))
