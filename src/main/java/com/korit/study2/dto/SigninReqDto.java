@@ -1,7 +1,6 @@
 package com.korit.study2.dto;
 
 import com.korit.study2.entity.User;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

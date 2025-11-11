@@ -1,5 +1,6 @@
 package com.korit.study2.dao;
 
+import com.korit.study2.dto.GetUserListRespDto;
 import com.korit.study2.entity.User;
 import com.korit.study2.util.ConnectionFactory;
 
@@ -98,11 +99,39 @@ public class UserDao {
         return userAll;
     }
 
+    public List<GetUserListRespDto> searchUserByKeyword(String str) {
+        String sql = "select user_id, username, email, create_dt from user2_tb where username like?";
+        List<GetUserListRespDto> userListDto = new ArrayList<>();
+
+        try (Connection con = ConnectionFactory.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, "%" + str + "%");
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    userListDto.add(toUserDto(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userListDto;
+    }
+
     public User toUser(ResultSet rs) throws SQLException {
         return User.builder()
                 .userId(rs.getInt("user_id"))
                 .username(rs.getString("username"))
                 .password(rs.getString("password"))
+                .email(rs.getString("email"))
+                .createDt(rs.getTimestamp("create_dt").toLocalDateTime())
+                .build();
+    }
+
+    public GetUserListRespDto toUserDto (ResultSet rs) throws SQLException {
+        return GetUserListRespDto.builder()
+                .userId(rs.getInt("user_id"))
+                .username(rs.getString("username"))
                 .email(rs.getString("email"))
                 .createDt(rs.getTimestamp("create_dt").toLocalDateTime())
                 .build();

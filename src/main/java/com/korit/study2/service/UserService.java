@@ -7,6 +7,7 @@ import com.korit.study2.dto.SignupReqDto;
 import com.korit.study2.entity.User;
 import com.korit.study2.util.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,8 +51,19 @@ public class UserService {
         return searchUser.isPresent();
     }
 
-    public List<User> userListAll() {
-        return userDao.searchUserAll();
+    public List<GetUserListRespDto> searchUserByUsername(String username) {
+        return userDao.searchUserByKeyword(username);
+    }
+
+    public List<GetUserListRespDto> getUserAll() {
+        return userDao.searchUserAll().stream()
+                .map(user -> new GetUserListRespDto(
+                        user.getUserId(),
+                        user.getUsername(),
+                        user.getEmail(),
+                        user.getCreateDt()
+                ))
+                .toList();
     }
     /*
      *

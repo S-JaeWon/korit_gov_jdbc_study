@@ -6,6 +6,7 @@ import com.korit.study2.dto.SignupReqDto;
 import com.korit.study2.entity.User;
 import com.korit.study2.service.UserService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -75,22 +76,24 @@ public class Main {
                 System.out.print("비밀번호: ");
                 signinReqDto.setPassword(scanner.nextLine());
 
-                User user = userService.signin(signinReqDto);
+                userService.signin(signinReqDto);
 
                 System.out.println("로그인 완료");
 
             }
             else if ("3".equals(select)) {
                 System.out.println("[ 전체회원 조회 ]");
-                GetUserListRespDto getUserListRespDto = new GetUserListRespDto();
-                System.out.println(userService.userListAll());
-
+                List<GetUserListRespDto> userListRespDtoList = userService.getUserAll();
+                userListRespDtoList.forEach(System.out::println);
             }
             else if ("4".equals(select)) {
                 System.out.println("[ 회원 검색 ]");
-
+                System.out.print("검색할 아이디: ");
+                String search = scanner.nextLine();
+                List<GetUserListRespDto> userListRespDtoList = userService.searchUserByUsername(search);
+                userListRespDtoList.forEach(System.out::println);
             }
-
         }
     }
 }
+q
