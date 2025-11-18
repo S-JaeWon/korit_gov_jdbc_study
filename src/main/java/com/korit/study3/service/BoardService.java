@@ -4,7 +4,6 @@ import com.korit.study3.dao.BoardDao;
 import com.korit.study3.dto.BoardReqDto;
 import com.korit.study3.entity.Board;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

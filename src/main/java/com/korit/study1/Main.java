@@ -25,6 +25,8 @@ public class Main {
         User searchUser = userDao.findUserByUsername("user3");
         System.out.println(searchUser);
 
+/* -------------------------------------------------------------------------- */
+
         //다건조회
         List<User> searchUserAll = userDao.getUserAllList();
         searchUserAll.forEach(System.out::println);
